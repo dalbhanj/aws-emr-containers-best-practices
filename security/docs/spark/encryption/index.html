@@ -1247,7 +1247,7 @@ aws emr-containers start-job-run --cli-input-json file:///spark-python-in-s3-enc
 <span class="w">      </span><span class="n">storage</span><span class="o">:</span><span class="w"> </span><span class="mi">10</span><span class="n">Gi</span><span class="w"></span>
 </code></pre></div>
 
-<p>Once these resources are created, you can specify them in your drivers and executors. You can see an example of this specification below. Keep in mind, you can only attach an EBS volume to single EC2 instance or a Kubernetes pod. Therefore, if you have multiple executor pods, you need to create multiple PVCs to fulfill this request </p>
+<p>Once these resources are created, you can specify them in your drivers and executors. You can see an example of this specification below.</p>
 <div class="codehilite"><pre><span></span><code>--conf spark.kubernetes.driver.volumes.persistentVolumeClaim.data.options.claimName=spark-driver-pvc
 --conf spark.kubernetes.driver.volumes.persistentVolumeClaim.data.mount.readOnly=false
 --conf spark.kubernetes.driver.volumes.persistentVolumeClaim.data.mount.path=/data
