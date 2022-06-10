@@ -681,6 +681,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#sync-hudi-table-with-aws-glue-catalog" class="md-nav__link">
+    Sync Hudi table with AWS Glue catalog
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -956,6 +963,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#sync-hudi-table-with-aws-glue-catalog" class="md-nav__link">
+    Sync Hudi table with AWS Glue catalog
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1131,6 +1145,93 @@ To specify the accountID where the AWS Glue catalog is defined reference the fol
 |2716504499|
 +----------+
 </code></pre></div>
+
+<h4 id="sync-hudi-table-with-aws-glue-catalog"><strong>Sync Hudi table with AWS Glue catalog</strong><a class="headerlink" href="#sync-hudi-table-with-aws-glue-catalog" title="Permanent link">&para;</a></h4>
+<p>In this example, a Spark application will be configured to use <a href="https://docs.aws.amazon.com/glue/latest/dg/components-overview.html">AWS Glue data catalog</a> as the hive metastore. </p>
+<p>Starting from Hudi 0.9.0, we can synchronize Hudi table's latest schema to Glue catalog via the Hive Metastore Service (HMS) in hive sync mode. This example runs a Hudi ETL job with EMR on EKS, and interact with AWS Glue metaStore to create a Hudi table. It provides you the native and serverless capabilities to manage your technical metadata. Also you can query Hudi tables in Athena straigt away after the ETL job, which provides your end user an easy data access and shortens the time to insight.</p>
+<p><strong>HudiEMRonEKS.py</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">cat</span> <span class="o">&gt;</span> <span class="n">HudiEMRonEKS</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;&lt;</span><span class="n">EOF</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
+
+<span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span> \
+    <span class="o">.</span><span class="n">builder</span> \
+    <span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;spark.sql.warehouse.dir&quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;/warehouse/&quot;</span> <span class="p">)</span> \
+    <span class="o">.</span><span class="n">enableHiveSupport</span><span class="p">()</span> \
+    <span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+
+<span class="c1"># Create a DataFrame</span>
+<span class="n">inputDF</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">createDataFrame</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;100&quot;</span><span class="p">,</span> <span class="s2">&quot;2015-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2015-01-01T13:51:39.340396Z&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;101&quot;</span><span class="p">,</span> <span class="s2">&quot;2015-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2015-01-01T12:14:58.597216Z&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;102&quot;</span><span class="p">,</span> <span class="s2">&quot;2015-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2015-01-01T13:51:40.417052Z&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;103&quot;</span><span class="p">,</span> <span class="s2">&quot;2015-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2015-01-01T13:51:40.519832Z&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;104&quot;</span><span class="p">,</span> <span class="s2">&quot;2015-01-02&quot;</span><span class="p">,</span> <span class="s2">&quot;2015-01-01T12:15:00.512679Z&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;105&quot;</span><span class="p">,</span> <span class="s2">&quot;2015-01-02&quot;</span><span class="p">,</span> <span class="s2">&quot;2015-01-01T13:51:42.248818Z&quot;</span><span class="p">),</span>
+    <span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;creation_date&quot;</span><span class="p">,</span> <span class="s2">&quot;last_update_time&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Specify common DataSourceWriteOptions in the single hudiOptions variable</span>
+<span class="n">test_tableName</span> <span class="o">=</span> <span class="s2">&quot;hudi_tbl&quot;</span>
+<span class="n">hudiOptions</span> <span class="o">=</span> <span class="p">{</span>
+<span class="s1">&#39;hoodie.table.name&#39;</span><span class="p">:</span> <span class="n">test_tableName</span><span class="p">,</span>
+<span class="s1">&#39;hoodie.datasource.write.recordkey.field&#39;</span><span class="p">:</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span>
+<span class="s1">&#39;hoodie.datasource.write.partitionpath.field&#39;</span><span class="p">:</span> <span class="s1">&#39;creation_date&#39;</span><span class="p">,</span>
+<span class="s1">&#39;hoodie.datasource.write.precombine.field&#39;</span><span class="p">:</span> <span class="s1">&#39;last_update_time&#39;</span><span class="p">,</span>
+<span class="s1">&#39;hoodie.datasource.hive_sync.enable&#39;</span><span class="p">:</span> <span class="s1">&#39;true&#39;</span><span class="p">,</span>
+<span class="s1">&#39;hoodie.datasource.hive_sync.table&#39;</span><span class="p">:</span> <span class="n">test_tableName</span><span class="p">,</span>
+<span class="s1">&#39;hoodie.datasource.hive_sync.database&#39;</span><span class="p">:</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span>
+<span class="s1">&#39;hoodie.datasource.write.hive_style_partitioning&#39;</span><span class="p">:</span> <span class="s1">&#39;true&#39;</span><span class="p">,</span>
+<span class="s1">&#39;hoodie.datasource.hive_sync.partition_fields&#39;</span><span class="p">:</span> <span class="s1">&#39;creation_date&#39;</span><span class="p">,</span>
+<span class="s1">&#39;hoodie.datasource.hive_sync.partition_extractor_class&#39;</span><span class="p">:</span> <span class="s1">&#39;org.apache.hudi.hive.MultiPartKeysValueExtractor&#39;</span><span class="p">,</span>
+<span class="s1">&#39;hoodie.datasource.hive_sync.mode&#39;</span><span class="p">:</span> <span class="s1">&#39;hms&#39;</span>
+<span class="p">}</span>
+
+
+<span class="c1"># Write a DataFrame as a Hudi dataset</span>
+<span class="n">inputDF</span><span class="o">.</span><span class="n">write</span> \
+<span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;org.apache.hudi&#39;</span><span class="p">)</span> \
+<span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;hoodie.datasource.write.operation&#39;</span><span class="p">,</span> <span class="s1">&#39;bulk_insert&#39;</span><span class="p">)</span> \
+<span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="o">**</span><span class="n">hudiOptions</span><span class="p">)</span> \
+<span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="s1">&#39;overwrite&#39;</span><span class="p">)</span> \
+<span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;/hudi_hive_insert&quot;</span><span class="p">)</span>
+<span class="n">EOF</span>
+</code></pre></div>
+
+<p>NOTE: configure the <code>warehouse dir</code> property to point to a S3 location as your hive warehouse storage. The s3 location can be dynamic, which is based on an argument passed in or an environament vairable.</p>
+<div class="codehilite"><pre><span></span><code><span class="na">.config</span><span class="p">(</span><span class="s">&quot;spark.sql.warehouse.dir&quot;</span><span class="p">,</span><span class="w"> </span><span class="no">sys.argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="err">+</span><span class="s">&quot;/warehouse/&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>Request</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="n">S3BUCKET</span><span class="o">=</span><span class="n">YOUR_S3_BUCKET_NAME</span><span class="w"></span>
+
+<span class="n">aws</span><span class="w"> </span><span class="n">emr</span><span class="o">-</span><span class="n">containers</span><span class="w"> </span><span class="n">start</span><span class="o">-</span><span class="n">job</span><span class="o">-</span><span class="n">run</span><span class="w"> </span>\<span class="w"></span>
+<span class="o">--</span><span class="n">virtual</span><span class="o">-</span><span class="n">cluster</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="o">$</span><span class="n">VIRTUAL_CLUSTER_ID</span><span class="w"> </span>\<span class="w"></span>
+<span class="o">--</span><span class="n">name</span><span class="w"> </span><span class="n">hudi</span><span class="o">-</span><span class="n">test1</span><span class="w"> </span>\<span class="w"></span>
+<span class="o">--</span><span class="n">execution</span><span class="o">-</span><span class="n">role</span><span class="o">-</span><span class="n">arn</span><span class="w"> </span><span class="o">$</span><span class="n">EMR_ROLE_ARN</span><span class="w"> </span>\<span class="w"></span>
+<span class="o">--</span><span class="n">release</span><span class="o">-</span><span class="n">label</span><span class="w"> </span><span class="n">emr</span><span class="o">-</span><span class="mf">6.3</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">latest</span><span class="w"> </span>\<span class="w"></span>
+<span class="o">--</span><span class="n">job</span><span class="o">-</span><span class="n">driver</span><span class="w"> </span><span class="s1">&#39;{</span>
+<span class="w">  </span><span class="s2">&quot;sparkSubmitJobDriver&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="s2">&quot;entryPoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;s3://&#39;$S3BUCKET&#39;/app_code/job/HudiEMRonEKS.py&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="s2">&quot;entryPointArguments&quot;</span><span class="p">:[</span><span class="s2">&quot;s3://&#39;$S3BUCKET&#39;&quot;</span><span class="p">],</span><span class="w"></span>
+<span class="w">      </span><span class="s2">&quot;sparkSubmitParameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;--jars https://repo1.maven.org/maven2/org/apache/hudi/hudi-spark3-bundle_2.12/0.9.0/hudi-spark3-bundle_2.12-0.9.0.jar --conf spark.executor.cores=1 --conf spark.executor.instances=2&quot;</span><span class="p">}}</span><span class="s1">&#39; </span><span class="se">\</span>
+<span class="s1">--configuration-overrides &#39;</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;applicationConfiguration&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;classification&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;spark-defaults&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="s2">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="s2">&quot;spark.serializer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;org.apache.spark.serializer.KryoSerializer&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="s2">&quot;spark.sql.hive.convertMetastoreParquet&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;false&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="s2">&quot;spark.hadoop.hive.metastore.client.factory.class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}}</span><span class="w"></span>
+<span class="w">    </span><span class="p">],</span><span class="w"> </span>
+<span class="w">    </span><span class="s2">&quot;monitoringConfiguration&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="s2">&quot;s3MonitoringConfiguration&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;logUri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;s3://&#39;$S3BUCKET&#39;/elasticmapreduce/emr-containers&quot;</span><span class="p">}}}</span><span class="s1">&#39;</span>
+</code></pre></div>
+
+<p>NOTE: To get a correct verison of hudi library, we directly download the jar from the maven repository with the synctax of <code>"sparkSubmitParameters": "--jars https://repo1.maven.org/maven2/org/apache/hudi/hudi-spark3-bundle_2.12/0.9.0/hudi-spark3-bundle_2.12-0.9.0.jar</code>. Starting from EMR 6.5, the Hudi-spark3-bundle library will be included in EMR docker images.</p>
 
               
             </article>

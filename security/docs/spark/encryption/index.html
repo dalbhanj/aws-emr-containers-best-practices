@@ -1130,8 +1130,10 @@
 <h3 id="shared-responsibility-model">Shared responsibility model<a class="headerlink" href="#shared-responsibility-model" title="Permanent link">&para;</a></h3>
 <p>EMR on EKS provides simple way to run spark jobs on top of EKS clusters. The architecture itself is loosely coupled and is abstracted from customers so that they can run secure environment for running spark applications. Because EMR on EKS uses combination of two services (EMR and EKS) at a minimal, we will cover how EKS enables infrastructure components that are consumable by EMR spark workload and how to handle encryption for each service.</p>
 <p>AWS assumes different levels of responsibility depending on the features being consumed by EMR on EKS customers. At this time of writing, the features from EKS are managed node groups, self-managed workers, and Fargate. We won’t go in-depth on these architectures as they are detailed in EKS best practices guide (https://aws.github.io/aws-eks-best-practices/security/docs/). Below diagrams depict how this responsibility changes between customer and AWS based on consumed features.</p>
-<p><img src="../resources/images/emr-on-eks-self-and-managed.png" alt="emr-on-eks-self-and-managed" width="1000" /></p>
-<p><img src="../resources/images/emr-on-eks-fargate.png" alt="emr-on-eks-fargate" width="500" /></p>
+<!-- <img src="../resources/images/emr-on-eks-self-and-managed.png" alt="emr-on-eks-self-and-managed" width="1000" />
+//<img src="../resources/images/emr-on-eks-fargate.png" alt="emr-on-eks-fargate" width="500" /> -->
+<p><img alt="" src="../../resources/images/emr-on-eks-self-and-managed.png" />
+<img alt="" src="../../resources/images/emr-on-eks-fargate.png" /></p>
 <h3 id="encryption-for-data-in-transit">Encryption for data in-transit<a class="headerlink" href="#encryption-for-data-in-transit" title="Permanent link">&para;</a></h3>
 <p>In this section, we will cover encryption for data in-transit. We will highlight AWS platform capabilities from the physical layer and then review how AWS handles encryption in the EMR on EKS architecture layer. Lastly, we will cover how customers can enable encryption between spark drivers and executors.</p>
 <h4 id="aws-infrastructure-physical-layer">AWS Infrastructure - Physical layer<a class="headerlink" href="#aws-infrastructure-physical-layer" title="Permanent link">&para;</a></h4>
@@ -1245,7 +1247,7 @@ aws emr-containers start-job-run --cli-input-json file:///spark-python-in-s3-enc
 <span class="w">      </span><span class="n">storage</span><span class="o">:</span><span class="w"> </span><span class="mi">10</span><span class="n">Gi</span><span class="w"></span>
 </code></pre></div>
 
-<p>Once these resources are created, you can specify them in your drivers and executors. You can see an example of this specification below.</p>
+<p>Once these resources are created, you can specify them in your drivers and executors. You can see an example of this specification below. Keep in mind, you can only attach an EBS volume to single EC2 instance or a Kubernetes pod. Therefore, if you have multiple executor pods, you need to create multiple PVCs to fulfill this request </p>
 <div class="codehilite"><pre><span></span><code>--conf spark.kubernetes.driver.volumes.persistentVolumeClaim.data.options.claimName=spark-driver-pvc
 --conf spark.kubernetes.driver.volumes.persistentVolumeClaim.data.mount.readOnly=false
 --conf spark.kubernetes.driver.volumes.persistentVolumeClaim.data.mount.path=/data
