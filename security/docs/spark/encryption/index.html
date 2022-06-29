@@ -267,6 +267,22 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../../../troubleshoot/docs/pvc-permission/" class="md-tabs__link">
+        Troubleshoot
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../../../node-placement/docs/eks-node-placement/" class="md-tabs__link">
         Node Placement
       </a>
@@ -813,6 +829,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../debugging/docs/connect-spark-ui/" class="md-nav__link">
+        Connect to Spark UI
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -836,12 +866,60 @@
       
       
         <label class="md-nav__link" for="__nav_7">
+          Troubleshoot
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Troubleshoot" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Troubleshoot
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../troubleshoot/docs/pvc-permission/" class="md-nav__link">
+        PVC permission
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
           Node Placement
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Node Placement" data-md-level="1">
-        <label class="md-nav__title" for="__nav_7">
+        <label class="md-nav__title" for="__nav_8">
           <span class="md-nav__icon md-icon"></span>
           Node Placement
         </label>
@@ -892,18 +970,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_8">
+        <label class="md-nav__link" for="__nav_9">
           Performance
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Performance" data-md-level="1">
-        <label class="md-nav__title" for="__nav_8">
+        <label class="md-nav__title" for="__nav_9">
           <span class="md-nav__icon md-icon"></span>
           Performance
         </label>
@@ -954,18 +1032,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_9">
+        <label class="md-nav__link" for="__nav_10">
           Spot instances resiliency
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Spot instances resiliency" data-md-level="1">
-        <label class="md-nav__title" for="__nav_9">
+        <label class="md-nav__title" for="__nav_10">
           <span class="md-nav__icon md-icon"></span>
           Spot instances resiliency
         </label>
@@ -1247,7 +1325,7 @@ aws emr-containers start-job-run --cli-input-json file:///spark-python-in-s3-enc
 <span class="w">      </span><span class="n">storage</span><span class="o">:</span><span class="w"> </span><span class="mi">10</span><span class="n">Gi</span><span class="w"></span>
 </code></pre></div>
 
-<p>Once these resources are created, you can specify them in your drivers and executors. You can see an example of this specification below.</p>
+<p>Once these resources are created, you can specify them in your drivers and executors. You can see an example of this specification below. Keep in mind, you can only attach an EBS volume to single EC2 instance or a Kubernetes pod. Therefore, if you have multiple executor pods, you need to create multiple PVCs to fulfill this request </p>
 <div class="codehilite"><pre><span></span><code>--conf spark.kubernetes.driver.volumes.persistentVolumeClaim.data.options.claimName=spark-driver-pvc
 --conf spark.kubernetes.driver.volumes.persistentVolumeClaim.data.mount.readOnly=false
 --conf spark.kubernetes.driver.volumes.persistentVolumeClaim.data.mount.path=/data

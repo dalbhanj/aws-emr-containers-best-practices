@@ -13,7 +13,7 @@
     
     
       
-        <title>Change Log Level - EMR Containers Best Practices Guides</title>
+        <title>PVC permission - EMR Containers Best Practices Guides</title>
       
     
     
@@ -58,7 +58,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#change-log-level-for-spark-application-on-emr-on-eks" class="md-skip">
+        <a href="#troubleshoot-spark-application" class="md-skip">
           Skip to content
         </a>
       
@@ -91,7 +91,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Change Log Level
+              PVC permission
             
           </span>
         </div>
@@ -243,15 +243,13 @@
         
   
   
-    
-  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="./" class="md-tabs__link md-tabs__link--active">
+      <a href="../../../debugging/docs/change-log-level/" class="md-tabs__link">
         Debugging
       </a>
     </li>
@@ -261,13 +259,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../../../troubleshoot/docs/pvc-permission/" class="md-tabs__link">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
         Troubleshoot
       </a>
     </li>
@@ -668,14 +668,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
       
       
       
@@ -696,72 +694,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Change Log Level
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../debugging/docs/change-log-level/" class="md-nav__link">
         Change Log Level
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#change-log-level-to-debug" class="md-nav__link">
-    Change log level to DEBUG
-  </a>
-  
-    <nav class="md-nav" aria-label="Change log level to DEBUG">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#using-emr-classification" class="md-nav__link">
-    Using EMR classification
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-log4j-properties" class="md-nav__link">
-    Custom log4j properties
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -773,7 +710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../connect-spark-ui/" class="md-nav__link">
+      <a href="../../../debugging/docs/connect-spark-ui/" class="md-nav__link">
         Connect to Spark UI
       </a>
     </li>
@@ -793,12 +730,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
       
       
       
@@ -819,11 +758,93 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../../troubleshoot/docs/pvc-permission/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          PVC permission
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         PVC permission
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-1-persistentvolumeclaims-is-forbidden" class="md-nav__link">
+    Scenario 1 - "PersistentVolumeClaims is forbidden"
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario 1 - "PersistentVolumeClaims is forbidden"">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cause" class="md-nav__link">
+    Cause:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution" class="md-nav__link">
+    Solution:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    Verification
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patch-via-automated-script" class="md-nav__link">
+    Patch via automated script
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-patch" class="md-nav__link">
+    Manual patch
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1034,23 +1055,44 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#change-log-level-to-debug" class="md-nav__link">
-    Change log level to DEBUG
+  <a href="#scenario-1-persistentvolumeclaims-is-forbidden" class="md-nav__link">
+    Scenario 1 - "PersistentVolumeClaims is forbidden"
   </a>
   
-    <nav class="md-nav" aria-label="Change log level to DEBUG">
+    <nav class="md-nav" aria-label="Scenario 1 - "PersistentVolumeClaims is forbidden"">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#using-emr-classification" class="md-nav__link">
-    Using EMR classification
+  <a href="#cause" class="md-nav__link">
+    Cause:
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#custom-log4j-properties" class="md-nav__link">
-    Custom log4j properties
+  <a href="#solution" class="md-nav__link">
+    Solution:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    Verification
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patch-via-automated-script" class="md-nav__link">
+    Patch via automated script
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-patch" class="md-nav__link">
+    Manual patch
   </a>
   
 </li>
@@ -1072,116 +1114,92 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/aws/aws-emr-containers-best-practices/edit/master/docs/debugging/docs/change-log-level.md" title="Edit this page" class="md-content__button md-icon">
+<a href="https://github.com/aws/aws-emr-containers-best-practices/edit/master/docs/troubleshoot/docs/pvc-permission.md" title="Edit this page" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
-<h1 id="change-log-level-for-spark-application-on-emr-on-eks"><strong>Change Log level for Spark application on EMR on EKS</strong><a class="headerlink" href="#change-log-level-for-spark-application-on-emr-on-eks" title="Permanent link">&para;</a></h1>
-<p>To obtain more detail about their application or job submission, Spark application developers can change the log level of their job to different levels depending on their requirements. Spark uses apache log4j for logging.</p>
-<h3 id="change-log-level-to-debug">Change log level to DEBUG<a class="headerlink" href="#change-log-level-to-debug" title="Permanent link">&para;</a></h3>
-<h4 id="using-emr-classification"><strong>Using EMR classification</strong><a class="headerlink" href="#using-emr-classification" title="Permanent link">&para;</a></h4>
-<p>Log level of spark applications can be changed using the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-spark-configure.html">EMR spark-log4j configuration classification.</a></p>
-<p><strong>Request</strong><br />
-pi.py used in the below request payload is from <a href="https://github.com/apache/spark/blob/master/examples/src/main/python/pi.py">spark examples</a><br />
-<code>spark-log4j</code> classification can be used to configure values in <a href="https://github.com/apache/spark/blob/master/conf/log4j.properties.template">log4j.properties</a></p>
-<div class="codehilite"><pre><span></span><code>cat &gt; Spark-Python-in-s3-debug-log.json &lt;&lt; EOF
-{
-  &quot;name&quot;: &quot;spark-python-in-s3-debug-log-classification&quot;, 
-  &quot;virtualClusterId&quot;: &quot;&lt;virtual-cluster-id&gt;&quot;, 
-  &quot;executionRoleArn&quot;: &quot;&lt;execution-role-arn&gt;&quot;, 
-  &quot;releaseLabel&quot;: &quot;emr-6.2.0-latest&quot;, 
-  &quot;jobDriver&quot;: {
-    &quot;sparkSubmitJobDriver&quot;: {
-      &quot;entryPoint&quot;: &quot;s3://&lt;s3 prefix&gt;/pi.py&quot;, 
-       &quot;sparkSubmitParameters&quot;: &quot;--conf spark.driver.cores=5 --conf spark.executor.memory=20G --conf spark.driver.memory=15G --conf spark.executor.cores=6&quot;
-    }
-  }, 
-  &quot;configurationOverrides&quot;: {
-    &quot;applicationConfiguration&quot;: [
-      {
-        &quot;classification&quot;: &quot;spark-defaults&quot;, 
-        &quot;properties&quot;: {
-          &quot;spark.dynamicAllocation.enabled&quot;:&quot;false&quot;
-          }
-      },
-      {
-        &quot;classification&quot;: &quot;spark-log4j&quot;, 
-        &quot;properties&quot;: {
-          &quot;log4j.rootCategory&quot;:&quot;DEBUG, console&quot;
-          }
-      }
-    ], 
-    &quot;monitoringConfiguration&quot;: {
-      &quot;cloudWatchMonitoringConfiguration&quot;: {
-        &quot;logGroupName&quot;: &quot;/emr-containers/jobs&quot;, 
-        &quot;logStreamNamePrefix&quot;: &quot;demo&quot;
-      }, 
-      &quot;s3MonitoringConfiguration&quot;: {
-        &quot;logUri&quot;: &quot;s3://joblogs&quot;
-      }
-    }
-  }
-}
-EOF
-
-aws emr-containers start-job-run --cli-input-json file:///Spark-Python-in-s3-debug-log.json
+<h1 id="troubleshoot-spark-application"><strong>Troubleshoot Spark application</strong><a class="headerlink" href="#troubleshoot-spark-application" title="Permanent link">&para;</a></h1>
+<p>To obtain application error details, find the CloudWatch log or s3 log location defined by your job submission script. 
+For example the driver log is stored in s3://S3BUCKET_NAME/emr-containers-log/CLUSTER_ID/jobs/JOB_ID/containers/spark-JOB_ID/spark-JOB_ID-driver/stderr.gz defined by the following submission config:</p>
+<div class="codehilite"><pre><span></span><code>--configuration-overrides <span class="s1">&#39;{</span>
+<span class="s1">    &quot;monitoringConfiguration&quot;: {</span>
+<span class="s1">      &quot;s3MonitoringConfiguration&quot;: {&quot;logUri&quot;: &quot;s3://&#39;</span><span class="nv">$S3BUCKET</span><span class="s1">&#39;/emr-containers-log&quot;}}}&#39;</span>
 </code></pre></div>
 
-<p>The above request will print DEBUG logs in the spark driver and executor containers. The generated logs will be pushed to S3 and AWS Cloudwatch logs as configured in the request.</p>
-<h4 id="custom-log4j-properties"><strong>Custom log4j properties</strong><a class="headerlink" href="#custom-log4j-properties" title="Permanent link">&para;</a></h4>
-<p>Download log4j properties from <a href="https://github.com/apache/spark/blob/master/conf/log4j.properties.template">here</a>. Edit log4j.properties with log level as required. Save the edited log4j.properties in a mounted volume. In this example log4j.properties is placed in a s3 bucket that is mapped to a <a href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/what-is.html">FSx for Lustre filesystem</a>. </p>
-<p><strong>Request</strong><br />
-pi.py used in the below request payload is from <a href="https://github.com/apache/spark/blob/master/examples/src/main/python/pi.py">spark examples</a></p>
-<div class="codehilite"><pre><span></span><code><span class="n">cat</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">Spark</span><span class="o">-</span><span class="n">Python</span><span class="o">-</span><span class="ow">in</span><span class="o">-</span><span class="n">s3</span><span class="o">-</span><span class="n">debug</span><span class="o">-</span><span class="nb">log</span><span class="o">.</span><span class="n">json</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">EOF</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;spark-python-in-s3-debug-log&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">  </span><span class="s2">&quot;virtualClusterId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;virtual-cluster-id&gt;&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">  </span><span class="s2">&quot;executionRoleArn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;execution-role-arn&gt;&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">  </span><span class="s2">&quot;releaseLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;emr-6.2.0-latest&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">  </span><span class="s2">&quot;jobDriver&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;sparkSubmitJobDriver&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;entryPoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;s3://&lt;s3 prefix&gt;/pi.py&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">       </span><span class="s2">&quot;sparkSubmitParameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;--conf spark.driver.cores=2 --conf spark.executor.memory=2G --conf spark.driver.memory=2G --conf spark.executor.cores=2&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">},</span><span class="w"> </span>
-<span class="w">  </span><span class="s2">&quot;configurationOverrides&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;applicationConfiguration&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">      </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;classification&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;spark-defaults&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">        </span><span class="s2">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">          </span><span class="s2">&quot;spark.driver.extraJavaOptions&quot;</span><span class="p">:</span><span class="s2">&quot;-Dlog4j.configuration=file:///var/data/log4j-debug.properties&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">          </span><span class="s2">&quot;spark.executor.extraJavaOptions&quot;</span><span class="p">:</span><span class="s2">&quot;-Dlog4j.configuration=file:///var/data/log4j-debug.properties&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">          </span><span class="s2">&quot;spark.kubernetes.driver.volumes.persistentVolumeClaim.sparkdata.options.claimName&quot;</span><span class="p">:</span><span class="s2">&quot;fsx-claim&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">          </span><span class="s2">&quot;spark.kubernetes.driver.volumes.persistentVolumeClaim.sparkdata.mount.path&quot;</span><span class="p">:</span><span class="s2">&quot;/var/data/&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">          </span><span class="s2">&quot;spark.kubernetes.driver.volumes.persistentVolumeClaim.sparkdata.mount.readOnly&quot;</span><span class="p">:</span><span class="s2">&quot;false&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">          </span><span class="s2">&quot;spark.kubernetes.executor.volumes.persistentVolumeClaim.sparkdata.options.claimName&quot;</span><span class="p">:</span><span class="s2">&quot;fsx-claim&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">          </span><span class="s2">&quot;spark.kubernetes.executor.volumes.persistentVolumeClaim.sparkdata.mount.path&quot;</span><span class="p">:</span><span class="s2">&quot;/var/data/&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">          </span><span class="s2">&quot;spark.kubernetes.executor.volumes.persistentVolumeClaim.sparkdata.mount.readOnly&quot;</span><span class="p">:</span><span class="s2">&quot;false&quot;</span><span class="w"></span>
-<span class="w">         </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">],</span><span class="w"> </span>
-<span class="w">    </span><span class="s2">&quot;monitoringConfiguration&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;cloudWatchMonitoringConfiguration&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;logGroupName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/emr-containers/jobs&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">        </span><span class="s2">&quot;logStreamNamePrefix&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;demo&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p">},</span><span class="w"> </span>
-<span class="w">      </span><span class="s2">&quot;s3MonitoringConfiguration&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;logUri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;s3://joblogs&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="n">EOF</span><span class="w"></span>
-
-<span class="n">aws</span><span class="w"> </span><span class="n">emr</span><span class="o">-</span><span class="n">containers</span><span class="w"> </span><span class="n">start</span><span class="o">-</span><span class="n">job</span><span class="o">-</span><span class="n">run</span><span class="w"> </span><span class="o">--</span><span class="n">cli</span><span class="o">-</span><span class="n">input</span><span class="o">-</span><span class="n">json</span><span class="w"> </span><span class="n">file</span><span class="p">:</span><span class="o">///</span><span class="n">Spark</span><span class="o">-</span><span class="n">Python</span><span class="o">-</span><span class="ow">in</span><span class="o">-</span><span class="n">s3</span><span class="o">-</span><span class="n">debug</span><span class="o">-</span><span class="nb">log</span><span class="o">.</span><span class="n">json</span><span class="w"></span>
+<h2 id="scenario-1-persistentvolumeclaims-is-forbidden"><strong>Scenario 1 - "PersistentVolumeClaims is forbidden"</strong><a class="headerlink" href="#scenario-1-persistentvolumeclaims-is-forbidden" title="Permanent link">&para;</a></h2>
+<p>Running Spark jobs that require creation, listing or deletion of Persistent Volume Claims (PVC) is not supported before EMR6.8. Jobs that require these permissions will fail with the exception “persistentvolumeclaims is forbidden". Looking into application logs, you can see the driver log shows an error something look like this: <code>persistentvolumeclaims is forbidden. User "system:serviceaccount:emr:emr-containers-sa-spark-client-93ztm12rnjz163mt3rgdb3bjqxqfz1cgvqh1e9be6yr81" cannot create resource "persistentvolumeclaims" in API group "" in namesapce "emr".</code></p>
+<h3 id="cause"><strong>Cause:</strong><a class="headerlink" href="#cause" title="Permanent link">&para;</a></h3>
+<p>This is due to the default Kubernetes role: “emr-containers” missing the required PVC permissions. As a result, the <code>emr-containers</code> primary role can’t dynamically create necessary permissions in its childern roles of Spark driver, Spark executor or Spark client when submit a job. </p>
+<h3 id="solution"><strong>Solution:</strong><a class="headerlink" href="#solution" title="Permanent link">&para;</a></h3>
+<p>Add the required permissions to emr-containers related roles in EKS.</p>
+<h3 id="verification"><strong>Verification</strong><a class="headerlink" href="#verification" title="Permanent link">&para;</a></h3>
+<p>To verify whether your <strong>emr-containers</strong> role has the necessary permissions, run the command:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">export</span> <span class="nv">NAMESPACE</span><span class="o">=</span>YOUR_VALUE
+kubectl describe role emr-containers -n <span class="si">${</span><span class="nv">NAMESPACE</span><span class="si">}</span>
 </code></pre></div>
 
-<p><strong>Configurations of interest:</strong> <br />
-Below configuration enables spark driver and executor to pickup the log4j configuration file from <code>/var/data/</code> folder mounted to the driver and executor containers. For guide to mount FSx for Lustre to driver and executor containers - refer to <a href="../../../storage/docs/spark/fsx-lustre/">EMR Containers integration with FSx for Lustre</a></p>
-<div class="codehilite"><pre><span></span><code><span class="s2">&quot;spark.driver.extraJavaOptions&quot;</span><span class="p">:</span><span class="s2">&quot;-Dlog4j.configuration=file:///var/data/log4j-debug.properties&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="s2">&quot;spark.executor.extraJavaOptions&quot;</span><span class="p">:</span><span class="s2">&quot;-Dlog4j.configuration=file:///var/data/log4j-debug.properties&quot;</span><span class="p">,</span><span class="w"></span>
+<p>In addition, verify whether the spark driver/client roles have the necessary permissions with:</p>
+<div class="codehilite"><pre><span></span><code>kubectl describe role emr-containers-role-spark-driver -n <span class="si">${</span><span class="nv">NAMESPACE</span><span class="si">}</span>
+kubectl describe role emr-containers-role-spark-client -n <span class="si">${</span><span class="nv">NAMESPACE</span><span class="si">}</span>
 </code></pre></div>
+
+<p>If the permissions aren’t there, proceed with the <strong>Patch</strong> steps:</p>
+<h3 id="patch-via-automated-script"><strong>Patch via automated script</strong><a class="headerlink" href="#patch-via-automated-script" title="Permanent link">&para;</a></h3>
+<p>1.If there’s any job(s) running that needs the PVC permissions and failing, stop the job(s).</p>
+<p>2.Download the python script <a href="https://github.com/aws/aws-emr-containers-best-practices/blob/main/tools/pvc-permission/rbac_patch.py"><code>rbac_patch.py</code></a>, then execute it:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">python3</span> <span class="n">rbac_patch</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">n</span> <span class="err">$</span><span class="p">{</span><span class="n">NAMESPACE</span><span class="p">}</span> 
+</code></pre></div>
+
+<p>3.After running the command, it will show a kubectl diff between the new permissions and the old ones. Press <code>y</code> to patch the role.</p>
+<p>4.Verify the impacted roles have additional permissions:</p>
+<div class="codehilite"><pre><span></span><code>kubectl describe role -n <span class="si">${</span><span class="nv">NAMESPACE</span><span class="si">}</span>
+</code></pre></div>
+
+<p>5.Submit your EMR on EKS job again.</p>
+<h3 id="manual-patch"><strong>Manual patch</strong><a class="headerlink" href="#manual-patch" title="Permanent link">&para;</a></h3>
+<p>If the permission required is not included by the PVC rules addressed previously, you can modify the patch script above or manually adjust the Kubernetes permission as needed.</p>
+<p>NOTE: the “emr-containers” is a primary role, which must provide all the necessary permissions before changing your underlying Driver or Client roles.</p>
+<p>1.Download the current permissions into yaml files by running the commands:</p>
+<div class="codehilite"><pre><span></span><code>kubectl get role -n <span class="si">${</span><span class="nv">NAMESPACE</span><span class="si">}</span> emr-containers -o yaml &gt;&gt; emr-containers-role-patch.yaml
+kubectl get role -n <span class="si">${</span><span class="nv">NAMESPACE</span><span class="si">}</span> emr-containers-role-spark-driver -o yaml &gt;&gt; driver-role-patch.yaml
+kubectl get role -n <span class="si">${</span><span class="nv">NAMESPACE</span><span class="si">}</span> emr-containers-role-spark-client -o yaml &gt;&gt; client-role-patch.yaml
+</code></pre></div>
+
+<p>2.Edit each yaml file and add additional rules, based on the permission your application required:</p>
+<p>For example:
+<strong>emr-containers-role-patch.yaml</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;persistentvolumeclaims&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;create&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;delete&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>driver-role-patch.yaml</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;persistentvolumeclaims&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;create&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;delete&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;services&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;describe&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;create&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;delete&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>client-role-patch.yaml</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;persistentvolumeclaims&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w">  </span><span class="p p-Indicator">[</span><span class="s">&quot;create&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;delete&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+</code></pre></div>
+
+<p>3.Remove the following attributes and their values. This is necessary to be able to apply the update, or else an error will pop up:
+    - creationTimestamp
+    - resourceVersion
+    - uid
+4.Finally run the patch:</p>
+<div class="codehilite"><pre><span></span><code>kubectl apply -f emr-containers-role-patch.yaml
+kubectl apply -f driver-role-patch.yaml
+kubectl apply -f client-role-patch.yaml
+</code></pre></div>
+
+<p>5.Submit your EMR on EKS job again.</p>
 
               
             </article>
@@ -1195,7 +1213,7 @@ Below configuration enables spark driver and executor to pickup the log4j config
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../../../metastore-integrations/docs/aws-glue/" class="md-footer__link md-footer__link--prev" aria-label="Previous: AWS Glue" rel="prev">
+        <a href="../../../debugging/docs/connect-spark-ui/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Connect to Spark UI" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -1204,20 +1222,20 @@ Below configuration enables spark driver and executor to pickup the log4j config
               <span class="md-footer__direction">
                 Previous
               </span>
-              AWS Glue
+              Connect to Spark UI
             </div>
           </div>
         </a>
       
       
         
-        <a href="../connect-spark-ui/" class="md-footer__link md-footer__link--next" aria-label="Next: Connect to Spark UI" rel="next">
+        <a href="../../../node-placement/docs/eks-node-placement/" class="md-footer__link md-footer__link--next" aria-label="Next: EKS Node placement" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Connect to Spark UI
+              EKS Node placement
             </div>
           </div>
           <div class="md-footer__button md-icon">
